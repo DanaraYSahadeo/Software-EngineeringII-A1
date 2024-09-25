@@ -98,9 +98,9 @@ def list_competitions_command():
     list_competitions()
 
 @user_cli.command("view_results", help="View competition results")
-@click.argument('competition_name', required=False)
-def view_results_command(competition_name):
-    view_results(competition_name)
+@click.argument('identifier', required=False)
+def view_results_command(identifier):
+    view_results(identifier)
 
 app.cli.add_command(user_cli)
 

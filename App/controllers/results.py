@@ -202,9 +202,13 @@ def update_result(id, username, competition_name, results):
         return result
     return None
 
-def view_results(competition_name=None):
-    if competition_name:
-        results_query = Results.query.filter_by(competition_name=competition_name)
+def view_results(identifier=None):
+    if identifier:
+        # First, check if it is a competition name
+        results_query = Results.query.filter(
+            (Results.competition_name == identifier) |
+            (Results.username == identifier)
+        )
         results = results_query.all()
 
         # Print results if they exist
@@ -216,9 +220,9 @@ def view_results(competition_name=None):
                 print(f"{result.username:<20} {result.competition_name:<30} {result.results:<20}")
             print("=" * 80)
         else:
-            print("No results found for this competition.")
+            print("No results found for this competition or username.")
     else:
-        # If no competition name is provided, list unique competitions
+        # If no identifier is provided, list unique competitions
         competitions = {result.competition_name for result in Results.query.all()}
         print("=" * 50)
         print("Available Competitions:")
@@ -226,7 +230,7 @@ def view_results(competition_name=None):
         for index, comp in enumerate(sorted(competitions), start=1):
             print(f"{index}. {comp}")
         print("=" * 50)
-        print("Please enter the command again with a specific competition name to view results.")
+        print("Please enter the command again with a specific competition name or username to view results.")
 
 
 
