@@ -4,6 +4,9 @@ Hi, my name is Danara Sahadeo and this is my interpretation of a Competitions Pl
 
 # Flask Commands
 
+1. flask init
+2. flask import_data
+
 After initializing and importing the database, you the user can enter any of these commands in the CLI:
 
 1. flask user create :- to create a user
