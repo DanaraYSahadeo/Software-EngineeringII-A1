@@ -9,9 +9,9 @@ Hi, my name is Danara Sahadeo and this is my interpretation of a Competitions Pl
 
 After initializing and importing the database, you the user can enter any of these commands in the CLI:
 
-1. flask user create :- to create a user
+1. flask user create "username password" :- to create a user
 2. flask user list :- to list the users
-3. flask user create_competition :- to create a competition
+3. flask user create_competition "Competition Name" :- to create a competition
 4. flask user list_competitions :- to list all competitions
 5. flask user view_results :- to view results based on a username or a competition name
 
