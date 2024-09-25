@@ -2,37 +2,22 @@ from App.models import User
 from App.database import db
 from sqlalchemy.exc import IntegrityError
 
-# def create_user(username, password):
-#     new_user = User(username=username, password=password) # Create a new user 
-#     db.session.add(new_user)
-#     try:
-#         db.session.commit()
-#         print(f"User '{username}' created successfully.") # Success message
-#     except IntegrityError: # Integrity error handling
-#         db.session.rollback()
-#         print(f"Error: Username '{username}' is already in use. Please choose a different username.")
-#         raise  
-#     except Exception as e: # Unexpected error handling
-#         db.session.rollback()
-#         print(f"An unexpected error occurred while creating the user: {e}")
-#         raise  
-
 def create_user(username, password):
     """Create a new user with the given username and password."""
-    new_user = User(username=username, password=password)  # Create a new User instance
+    new_user = User(username=username, password=password)  # Create a new User 
     db.session.add(new_user)  # Add the new user to the session
     try:
-        db.session.commit()  # Commit the session to save the user
+        db.session.commit()  
         print(f"User '{username}' created successfully.")  # Success message
-        return new_user  # Return the newly created user
-    except IntegrityError:  # Handle integrity errors (e.g., duplicate username)
-        db.session.rollback()  # Rollback the session
+        return new_user  
+    except IntegrityError:  # If integrity error
+        db.session.rollback()  
         print(f"Error: Username '{username}' is already in use. Please choose a different username.")
-        return None  # Return None to indicate failure
-    except Exception as e:  # Handle unexpected errors
-        db.session.rollback()  # Rollback the session
+        return None  
+    except Exception as e:  # If unexpected errors
+        db.session.rollback()  
         print(f"An unexpected error occurred while creating the user: {e}")
-        return None  # Return None for unexpected errors
+        return None  
     
 def get_user_by_username(username): # Return first user that matches the username
     return User.query.filter_by(username=username).first()
