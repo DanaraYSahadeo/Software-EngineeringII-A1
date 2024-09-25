@@ -6,25 +6,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
-# class Competition(db.Model):
-#     competition_id = db.Column(db.Integer, primary_key=True)
-#     competition_name = db.Column(db.String(120), nullable=False)
-#     location = db.Column(db.String(120), nullable=False)
-#     description = db.Column(db.Text, nullable=True)
-
-#     def __init__(self, competition_name, location, description):
-#         self.competition_name = competition_name
-#         self.location = location
-#         self.description = description
-
-#     def get_json(self):
-#         return {
-#             'competition_id': self.competition_id,
-#             'competition_name': self.competition_name,
-#             'location': self.location,
-#             'description': self.description
-#         }
-
 from App.database import db
 
 class Competition(db.Model):

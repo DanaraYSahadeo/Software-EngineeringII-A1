@@ -1,199 +1,26 @@
-# from App.models import Results
-# from App.database import db
-
-# def create_result(username, competition_name, results):
-#     new_result = Results(username=username, competition_name=competition_name, results=results)
-#     db.session.add(new_result)
-#     db.session.commit()
-#     return new_result
-
-# def get_result(id):
-#     return Results.query.get(id)
-
-# def get_all_results():
-#     return Results.query.all()
-
-# def get_all_results_json():
-#     results = Results.query.all()
-#     if not results:
-#         return []
-#     results = [result.get_json() for result in results]
-#     return results
-
-# def update_result(id, username, competition_name, results):
-#     result = get_result(id)
-#     if result:
-#         result.username = username
-#         result.competition_name = competition_name
-#         result.results = results
-#         db.session.add(result)
-#         db.session.commit()
-#         return result
-#     return None
-
-
-# def view_results(competition_name=None):
-#     try:
-#         with open('data.csv', encoding='unicode_escape') as csvfile:
-#             reader = csv.DictReader(csvfile)
-#             competitions = set(row['competition_name'] for row in reader)
-                
-#             if not competition_name:
-#                 print("Available competitions:")
-#                 for i, competition in enumerate(competitions, 1):
-#                     print(f"{i}. {competition}")
-#                 print("\nPlease enter the command again with a competition name to view results.")
-#             else:
-#                 csvfile.seek(0)  # Reset reader to the beginning of the file
-#                 next(reader)  # Skip header row after seek
-#                 print(f"{'Username':<20} {'Competition Name':<30} {'Results':<20}")
-#                 for row in reader:
-#                     if row['competition_name'] == competition_name:
-#                         print(f"{row['username']:<20} {row['competition_name']:<30} {row['results']:<20}")
-#     except FileNotFoundError:
-#         print("data.csv file not found.")
-#     except Exception as e:
-#         print(f"An error occurred: {e}")
-
-# import csv
-# from App.models import Results
-# from App.database import db
-
-# def create_result(username, competition_name, results):
-#     new_result = Results(username=username, competition_name=competition_name, results=results)
-#     db.session.add(new_result)
-#     db.session.commit()
-#     return new_result
-
-# def get_result(id):
-#     return Results.query.get(id)
-
-# def get_all_results():
-#     return Results.query.all()
-
-# def get_all_results_json():
-#     results = Results.query.all()
-#     results = [result.get_json() for result in results]
-#     return results
-
-# def update_result(id, username, competition_name, results):
-#     result = get_result(id)
-#     if result:
-#         result.username = username
-#         result.competition_name = competition_name
-#         result.results = results
-#         db.session.add(result)
-#         db.session.commit()
-#         return result
-#     return None
-
-# def view_results(competition_name=None):
-#     try:
-#         with open('data.csv', encoding='unicode_escape') as csvfile:
-#             reader = csv.DictReader(csvfile)
-#             competitions = set(row['competition_name'] for row in reader)
-                
-#             if not competition_name:
-#                 print("Available competitions:")
-#                 for i, competition in enumerate(competitions, 1):
-#                     print(f"{i}. {competition}")
-#                 print("\nPlease enter the command again with a competition name to view results.")
-#             else:
-#                 csvfile.seek(0)  # Reset reader to the beginning of the file
-#                 next(reader)  # Skip header row after seek
-#                 print(f"{'Username':<20} {'Competition Name':<30} {'Results':<20}")
-#                 for row in reader:
-#                     if row['competition_name'] == competition_name:
-#                         print(f"{row['username']:<20} {row['competition_name']:<30} {row['results']:<20}")
-#     except FileNotFoundError:
-#         print("data.csv file not found.")
-#     except Exception as e:
-#         print(f"An error occurred: {e}")
-
-
-# Test
-# import csv
-# from App.models import Results
-# from App.database import db
-
-# def create_result(username, competition_name, results):
-#     new_result = Results(username=username, competition_name=competition_name, results=results)
-#     db.session.add(new_result)
-#     db.session.commit()
-#     return new_result
-
-# def get_result(id):
-#     return Results.query.get(id)
-
-# def get_all_results():
-#     return Results.query.all()
-
-# def get_all_results_json():
-#     results = Results.query.all()
-#     results = [result.get_json() for result in results]
-#     return results
-
-# def update_result(id, username, competition_name, results):
-#     result = get_result(id)
-#     if result:
-#         result.username = username
-#         result.competition_name = competition_name
-#         result.results = results
-#         db.session.add(result)
-#         db.session.commit()
-#         return result
-#     return None
-
-# def view_results(competition_name=None):
-#     try:
-#         with open('data2.csv', encoding='unicode_escape') as csvfile:
-#             reader = csv.DictReader(csvfile)
-#             competitions = set(row['competition_name'] for row in reader)
-                
-#             if not competition_name:
-#                 print("Available competitions:")
-#                 for i, competition in enumerate(competitions, 1):
-#                     print(f"{i}. {competition}")
-#                 print("\nPlease enter the command again with a competition name to view results.")
-#             else:
-#                 csvfile.seek(0)  # Reset reader to the beginning of the file
-#                 next(reader)  # Skip header row after seek
-#                 print(f"{'Username':<20} {'Competition Name':<30} {'Results':<20}")
-#                 for row in reader:
-#                     if row['competition_name'] == competition_name:
-#                         print(f"{row['username']:<20} {row['competition_name']:<30} {row['results']:<20}")
-#     except FileNotFoundError:
-#         print("data2.csv file not found.")
-#     except Exception as e:
-#         print(f"An error occurred: {e}")
-           
-# def view_results_command(competition_name):
-#     view_results(competition_name)
-
-# Test2
 from App.models import Results
 from App.database import db
 from sqlalchemy.exc import IntegrityError
 
-def create_result(username, competition_name, results):
-    new_result = Results(username=username, competition_name=competition_name, results=results)
+def create_result(username, competition_name, results): # Create a new result for a user in a competition
+    new_result = Results(username=username, competition_name=competition_name, results=results) # Creating new result 
     db.session.add(new_result)
     db.session.commit()
     return new_result
 
-def get_result(id):
+def get_result(id): # Return result with specified id
     return Results.query.get(id)
 
-def get_all_results():
+def get_all_results(): # Return list of results
     return Results.query.all()
 
 def get_all_results_json():
     results = Results.query.all()
     return [result.get_json() for result in results]
 
-def update_result(id, username, competition_name, results):
-    result = get_result(id)
-    if result:
+def update_result(id, username, competition_name, results): # Update existing result through id
+    result = get_result(id) # Get result by id
+    if result: # Update attributes
         result.username = username
         result.competition_name = competition_name
         result.results = results
@@ -202,17 +29,16 @@ def update_result(id, username, competition_name, results):
         return result
     return None
 
-def view_results(identifier=None):
+def view_results(identifier=None): # View results based on competition name or username
     if identifier:
-        # First, check if it is a competition name
+        # Check if it's a competition name
         results_query = Results.query.filter(
             (Results.competition_name == identifier) |
             (Results.username == identifier)
         )
         results = results_query.all()
 
-        # Print results if they exist
-        if results:
+        if results: # Print results if they exist
             print("=" * 80)
             print(f"{'Username':<20} {'Competition':<30} {'Results':<20}")
             print("=" * 80)

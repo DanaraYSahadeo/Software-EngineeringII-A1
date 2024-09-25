@@ -17,12 +17,13 @@ from App.controllers import (
 app = create_app()
 migrate = get_migrate(app)
 
+# Command to import data from csv :- flask import_data
 @app.cli.command("import_data", help="Imports data from data.csv into the database")
 def import_data():
     try:
         with open('data.csv', encoding='unicode_escape') as csvfile:
             reader = csv.DictReader(csvfile)
-            success_count = 0  # To track successful imports
+            success_count = 0  # Track successful imports
 
             for row in reader:
                 # Ensure all necessary fields are present
@@ -64,6 +65,7 @@ def import_data():
     except Exception as e:
         print(f"An error occurred: {e}")
 
+# Command to initialize the database :- flask init
 @app.cli.command("init", help="Creates and initializes the database")
 def init():
     db.drop_all()
@@ -72,6 +74,7 @@ def init():
 
 user_cli = AppGroup('user', help='User object commands')
 
+# Command to create a user :- flask user create "Bob" "bobpass"
 @user_cli.command("create", help="Creates a user")
 @click.argument("username")
 @click.argument("password")
@@ -82,21 +85,25 @@ def create_user_command(username, password):
     except IntegrityError:
         print(f"Error: Username '{username}' is already in use. Please choose a different username.")
 
+# Command to list usernames :- flask user list
 @user_cli.command("list", help="Lists usernames in the database")
 @click.argument("format", default="string")
 def list_user_command(format):
     user_list_output = list_users()  
     print(user_list_output)  
 
+# Command to create a competition :- flask user create_competition "Competition Name"
 @user_cli.command("create_competition", help="Creates a competition")
 @click.argument("competition_name")
 def create_competition_command(competition_name):  
     add_competition(competition_name)  
 
+# Command to list competitions :- flask user list_competitions
 @user_cli.command("list_competitions", help="Lists all competitions")
 def list_competitions_command():
     list_competitions()
 
+# Command to view results (specified by username or competition name) :- flask user view_results "Runtime" OR "Bob"
 @user_cli.command("view_results", help="View competition results")
 @click.argument('identifier', required=False)
 def view_results_command(identifier):
