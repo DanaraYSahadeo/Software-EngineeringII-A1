@@ -5,15 +5,16 @@ Hi, my name is Danara Sahadeo and this is my interpretation of a Competitions Pl
 # Flask Commands
 
 1. flask init
-2. flask import_data
+2. flask import_data "username"
 
 After initializing and importing the database, you the user can enter any of these commands in the CLI:
 
-1. flask user create "username password" :- to create a user
+1. flask user create "username" "password" "role(admin/student)":- to create a user
 2. flask user list :- to list the users
-3. flask user create_competition "Competition Name" :- to create a competition
-4. flask user list_competitions :- to list all competitions
-5. flask user view_results :- to view results based on a username or a competition name
+3. flask user create_competition "Competition Name" "admin_username":- to create a competition
+4. flask user add_result "admin_username" "username" "result" "competition_name"
+5. flask user list_competitions :- to list all competitions
+6. flask user view_results :- to view results based on a username or a competition name
 
 # Features Implemented 
 
@@ -21,6 +22,7 @@ After initializing and importing the database, you the user can enter any of the
 2. Import competition results from file (data.csv)
 3. View competitions list
 4. View competition results
+5. Add results 
 
 # Running the Project
 
