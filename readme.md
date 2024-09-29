@@ -2,27 +2,26 @@
 
 Hi, my name is Danara Sahadeo and this is my interpretation of a Competitions Platform for COMP 3616: Software Engineering II.
 
-# Flask Commands
+# Flask Commands 
 
 1. flask init
-2. flask import_data "username"
-
-After initializing and importing the database, you the user can enter any of these commands in the CLI:
-
-1. flask user create "username" "password" "role(admin/student)":- to create a user
-2. flask user list :- to list the users
-3. flask user create_competition "Competition Name" "admin_username":- to create a competition
-4. flask user add_result "admin_username" "username" "result" "competition_name"
-5. flask user list_competitions :- to list all competitions
-6. flask user view_results :- to view results based on a username or a competition name
+2. flask import_data "admin_username"
+3. flask user create "username" "password" "role(admin/student)":- to create a user
+4. flask user list :- to list the users
+5. flask user create_competition "competition_name" "admin_username":- to create a competition
+6. flask user add_result "admin_username" "username" "result" "competition_name" :- to add a result
+7. flask user list_competitions :- to list all competitions
+8. flask user view_results "competition_name" OR "username" :- to view results based on a username or a competition name
 
 # Features Implemented 
 
-1. Create Competition
-2. Import competition results from file (data.csv)
-3. View competitions list
-4. View competition results
-5. Add results 
+1. Create users
+2. List users
+3. Create Competition
+4. Import competition results from file (data.csv)
+5. View competitions list
+6. View competition results
+7. Add results 
 
 # Running the Project
 

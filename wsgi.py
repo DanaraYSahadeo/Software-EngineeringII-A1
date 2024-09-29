@@ -17,101 +17,7 @@ from App.controllers import (
 app = create_app()
 migrate = get_migrate(app)
 
-# # Command to import data from csv :- flask import_data
-# @app.cli.command("import_data", help="Imports data from data.csv into the database")
-# def import_data():
-#     try:
-#         with open('data.csv', encoding='unicode_escape') as csvfile:
-#             reader = csv.DictReader(csvfile)
-#             success_count = 0  # Track successful imports
-
-#             for row in reader:
-#                 # Ensure all necessary fields are present
-#                 if not all(k in row for k in ['username', 'competition_name', 'results']):
-#                     continue  # Skip rows with missing fields
-                
-#                 try:
-#                     # Create or get user
-#                     user = get_user_by_username(row['username'])
-#                     if not user:
-#                         create_user(row['username'], row.get('password', 'default_password'))
-
-#                     # Create or get competition
-#                     competition = get_competition_by_name(row['competition_name'])
-#                     if not competition:
-#                         add_competition(row['competition_name'])
-
-#                     # Create and add result
-#                     result = Results(
-#                         username=row['username'],
-#                         competition_name=row['competition_name'],
-#                         results=row['results']
-#                     )
-#                     db.session.add(result)
-#                     success_count += 1  # Increment count for each successful import
-
-#                 except Exception:
-#                     db.session.rollback()
-#                     continue  # Skip to the next row in case of error
-
-#             db.session.commit()
-#             if success_count > 0:
-#                 print(f'Data imported successfully: {success_count} entries added.')
-#             else:
-#                 print('No valid data to import.')
-
-#     except FileNotFoundError:
-#         print("data.csv file not found.")
-#     except Exception as e:
-#         print(f"An error occurred: {e}")
-
-# # Command to initialize the database :- flask init
-# @app.cli.command("init", help="Creates and initializes the database")
-# def init():
-#     db.drop_all()
-#     db.create_all()
-#     print('Database initialized')
-
-# user_cli = AppGroup('user', help='User object commands')
-
-# # Command to create a user :- flask user create "Bob" "bobpass"
-# @user_cli.command("create", help="Creates a user")
-# @click.argument("username")
-# @click.argument("password")
-# def create_user_command(username, password):
-#     try:
-#         create_user(username, password)
-#         print(f"User '{username}' added successfully.")
-#     except IntegrityError:
-#         print(f"Error: Username '{username}' is already in use. Please choose a different username.")
-
-# # Command to list usernames :- flask user list
-# @user_cli.command("list", help="Lists usernames in the database")
-# @click.argument("format", default="string")
-# def list_user_command(format):
-#     user_list_output = list_users()  
-#     print(user_list_output)  
-
-# # Command to create a competition :- flask user create_competition "Competition Name"
-# @user_cli.command("create_competition", help="Creates a competition")
-# @click.argument("competition_name")
-# def create_competition_command(competition_name):  
-#     add_competition(competition_name)  
-
-# # Command to list competitions :- flask user list_competitions
-# @user_cli.command("list_competitions", help="Lists all competitions")
-# def list_competitions_command():
-#     list_competitions()
-
-# # Command to view results (specified by username or competition name) :- flask user view_results "Runtime" OR "Bob"
-# @user_cli.command("view_results", help="View competition results")
-# @click.argument('identifier', required=False)
-# def view_results_command(identifier):
-#     view_results(identifier)
-
-# app.cli.add_command(user_cli)
-
-# Command to import data from CSV
+# Command to import data from CSV :- flask import_data "username"
 @app.cli.command("import_data", help="Imports data from data.csv into the database")
 @click.argument("admin_username")  # Admin username as an argument for authentication
 def import_data(admin_username):
@@ -129,7 +35,7 @@ def import_data(admin_username):
             for row in reader:
                 print(f"Processing row: {row}")  # Debugging output
                 if not all(k in row for k in ['username', 'competition_name', 'results']):
-                    print(f"Skipping row due to missing fields: {row}")  # Debugging output
+                    print(f"Skipping row due to missing fields: {row}")  
                     continue
                 
                 try:
@@ -150,11 +56,11 @@ def import_data(admin_username):
                         results=row['results']
                     )
                     db.session.add(result)
-                    success_count += 1  # Increment count for each successful import
+                    success_count += 1  
 
                 except Exception as e:
                     db.session.rollback()
-                    print(f"Error processing row: {row}, error: {e}")  # Debugging output
+                    print(f"Error processing row: {row}, error: {e}")  
                     continue
 
             db.session.commit()
@@ -177,7 +83,7 @@ def init():
 
 user_cli = AppGroup('user', help='User object commands')
 
-# Command to create a user
+# Command to create a user :- flask user create "username" "password" "role(admin/student)"
 @user_cli.command("create", help="Creates a user")
 @click.argument("username")
 @click.argument("password")
@@ -195,7 +101,7 @@ def list_user_command(format):
     user_list_output = list_users()  
     print(user_list_output)  
 
-# Command to create a competition
+# Command to create a competition :- flask user create_competition "competition_name"
 @user_cli.command("create_competition", help="Creates a competition")
 @click.argument("competition_name")
 @click.argument("user_username")
@@ -206,17 +112,17 @@ def create_competition_command(competition_name, user_username):
     else:
         print("Error: Only admins can create competitions.")
 
-# Command to list competitions
+# Command to list competitions :- flask user list_competitions
 @user_cli.command("list_competitions", help="Lists all competitions")
 def list_competitions_command():
     list_competitions()
 
-# Command to add a result
+# Command to add a result :- flask user add_result "admin_username" "username" "result" "competition_name"
 @user_cli.command("add_result", help="Adds a result for a specified user and competition")
-@click.argument("admin_username")  # Admin username as an argument for authentication
-@click.argument("username")  # Username for which the result is being added
-@click.argument("result")  # Result argument (e.g., "1st", "2nd")
-@click.argument("competition_name")  # Competition name argument
+@click.argument("admin_username")  
+@click.argument("username")  
+@click.argument("result")  
+@click.argument("competition_name") 
 def add_result_command(admin_username, username, result, competition_name):
     """Command to add a result for a specified user and competition, checking for admin permissions."""
     # Check if the user is an admin
@@ -233,7 +139,7 @@ def add_result_command(admin_username, username, result, competition_name):
     add_result_for_user(username, result, competition_name, admin_user)
 
 
-# Command to view results (specified by username or competition name) :- flask user view_results "Runtime" OR "Bob"
+# Command to view results (specified by username or competition name) :- flask user view_results "competition_name" OR "username"
 @user_cli.command("view_results", help="View competition results")
 @click.argument('identifier', required=False)
 def view_results_command(identifier):
